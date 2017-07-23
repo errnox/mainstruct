@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+
+MAN_COMMANDS="./res/man_commands"
+
+
+cat $MAN_COMMANDS | while read command;
+do
+    printf "%s\n" $command
+
+    for (( i=0; i<${#command}; i++ ));
+    do
+	printf "="
+    done
+
+    printf "\n\n"
+
+    man $command | egrep "^ *[[:upper:]]+ *$" | sed "s/ /./g" | nl
+
+    printf "\n\n---------------------------------------------------------------------------\n\n"
+done
